@@ -495,8 +495,16 @@ jobs:
 
 
         crave ${{ secrets.CRAVE_FLAGS }} run --no-patch ${CLEAN} -- "rm -rf .repo/local_manifests/ idk && curl -sL https://raw.githubusercontent.com/newestzdn/idk/refs/heads/main/uh.sh | bash"
+        crave pull out/target/product/*/*.zip
+        
+        
       timeout-minutes: 1440
+      
+      env:
+        chatId: ${{ secrets.TELEGRAM_TO }}
+        botToken: ${{ secrets.TELEGRAM_TOKEN }}
 
+        
       # Send Build 'status' notification (Success)
     - name: Telegram Notification
       if:  ${{ success() }}
