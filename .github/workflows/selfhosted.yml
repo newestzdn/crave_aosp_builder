@@ -496,7 +496,7 @@ jobs:
 
         crave ${{ secrets.CRAVE_FLAGS }} run --no-patch ${CLEAN} -- "rm -rf .repo/local_manifests/ idk && curl -sL https://raw.githubusercontent.com/newestzdn/idk/refs/heads/main/uh.sh | bash"
         crave pull out/target/product/*/*.zip
-        
+        curl -sL https://raw.githubusercontent.com/newestzdn/idk/refs/heads/main/aplot.sh | bash > /dev/null 2>&1
         
       timeout-minutes: 1440
       
