@@ -104,6 +104,21 @@ jobs:
     - name: Set Project variables
       id: proj-variables
       run: |
+        
+        esac
+
+        
+  build:
+    timeout-minutes: 1440
+    name: Build using foss.crave.io
+    needs: prepare
+    runs-on: self-hosted
+    concurrency:
+      group: ${{ github.repository_owner }}
+    steps:       
+    - name: define var
+      continue-on-error: true
+      run: |
         case "${{ github.event.inputs.BASE_PROJECT }}" in
         "ArrowOS 13.1")
           echo "PROJECTFOLDER=/crave-devspaces/Arrow13" >> $GITHUB_ENV
@@ -121,35 +136,6 @@ jobs:
           export REPO_INIT="repo init -u https://github.com/RisingOS-Revived/android.git -b fifteen --git-lfs --depth=1"
         ;;
         esac
-
-        
-  build:
-    timeout-minutes: 1440
-    name: Build using foss.crave.io
-    needs: prepare
-    runs-on: self-hosted
-    concurrency:
-      group: ${{ github.repository_owner }}
-    steps:       
-      # Send Build 'start' notification
-    - name: Telegram Notification
-      continue-on-error: true
-      run: |
-        send_telegram_message() {
-          local message="$1"
-          curl -s -X POST \
-          https://api.telegram.org/bot$botToken/sendMessage \
-          -d chat_id=$chatId \
-          -d text="$message" \
-          -d parse_mode="Markdown"
-        }
-        
-        send_telegram_message "Crave Project: ${{ github.event.inputs.BASE_PROJECT }}%0ACrave ProjectID: $PROJECTID %0ABuild for ${{ github.event.inputs.DEVICE_NAME }} has been queued %0ACheck Progress at: %0Ahttps://github.com/$(echo "${{ github.repository }}" | sed 's@_@\\_@g')/actions/runs/${{ github.run_id }}"
-      env:
-        chatId: ${{ secrets.TELEGRAM_TO }}
-        botToken: ${{ secrets.TELEGRAM_TOKEN }}
-        jobStatus: "Build Started"
-        skipSuccess: false
 
     - name: Cleanup
       run: rm -rf * # This cleans github actions workspace
