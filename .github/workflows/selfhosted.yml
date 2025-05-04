@@ -130,11 +130,9 @@ jobs:
         else
           echo "We are already running in devspace... Skipping Symlinks"
         fi
-        mkdir -p $PROJECTFOLDER
-        cd $PROJECTFOLDER
-        repo init -u https://github.com/ArrowOS/android_manifest.git -b arrow-13.1 --depth=1
-        crave set --projectID 73
-        cd ..
+        
+        [ -d $PROJECTFOLDER ] || crave clone create --projectID $PROJECTID $PROJECTFOLDER
+        
         
       # Check-out in order to access the repository's files.
     - name: Check-out to repository
@@ -185,7 +183,8 @@ jobs:
     - name: Start compilation through 'crave'
       run: |
         cd $PROJECTFOLDER
-      
+        jq '.projects = []' ~/crave.conf > tmp && mv tmp ~/crave.conf
+        
         echo "Build is queued! Please wait for your build to start."
         echo "Check foss.crave.io Dashboard to see builds"
         echo "Running build's log will show up here!"
