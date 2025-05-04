@@ -76,7 +76,7 @@ jobs:
           else
             echo "Error! Runner not found!"
             exit 1
-          fi
+          fi "
 
         if tmux has-session -t ghactions; then 
           echo "Runner is already Running" 
@@ -85,7 +85,8 @@ jobs:
           tmux new-session -d -s ghactions 
           tmux send-keys -t ghactions './actions-runner/run.sh' Enter 
           echo "Runner Started"
-        fi "
+        fi
+        
   prepare:
     name: Prepare for Building
     runs-on: ubuntu-latest
@@ -139,12 +140,7 @@ jobs:
         echo "DCDEVSPACE status: ${DCDEVSPACE}"
         if [[ "${DCDEVSPACE}" != "1" ]]; then
 
-          #curl -s https://raw.githubusercontent.com/accupara/crave/master/get_crave.sh | bash -s -- 
-
-          #mkdir -p ${HOME}/bin/
-          #mv ${PWD}/crave ${HOME}/bin/ 
-          #sudo ln -sf /home/${USER}/bin/crave /usr/bin/crave; sudo chmod +x /usr/bin/crave 
-
+          
           echo "Symlinking devspace folder"
           mkdir -p devspace
           sudo mkdir -p /crave-devspaces
@@ -155,7 +151,7 @@ jobs:
         fi
         mkdir -p $PROJECTFOLDER
         cd $PROJECTFOLDER
-        $REPOINIT
+        eval "$REPO_INIT"
         crave set --projectID 73
         cd ..
         
