@@ -185,12 +185,7 @@ jobs:
     - name: Start compilation through 'crave'
       run: |
         cd $PROJECTFOLDER
-        
-        jq '.projects = []' ~/crave.conf > tmp && mv tmp ~/crave.conf
-        if [ "${{ github.event.inputs.CLEAN_BUILD }}" == "yes" ]; then
-           export CLEAN="--clean"
-        fi
-
+      
         echo "Build is queued! Please wait for your build to start."
         echo "Check foss.crave.io Dashboard to see builds"
         echo "Running build's log will show up here!"
