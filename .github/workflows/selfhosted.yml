@@ -116,7 +116,7 @@ jobs:
         "ArrowOS 13.1")
           echo "PROJECTFOLDER=/crave-devspaces/Arrow13" >> $GITHUB_ENV
           echo "PROJECTID=73" >> $GITHUB_ENV
-          echo "REPO_INIT=repo init -u https://github.com/ArrowOS/android_manifest.git -b arrow-13.1 --depth=1" >> $GITHUB_ENV
+          echo "REPO_INIT='repo init -u https://github.com/ArrowOS/android_manifest.git -b arrow-13.1 --depth=1'" >> $GITHUB_ENV
         ;;
         "PixelOS 15")
           export PROJECTFOLDER="/crave-devspaces/Pixel15"
