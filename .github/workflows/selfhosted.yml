@@ -27,6 +27,14 @@ on:
         description: "Product to build:"
         required: true
         default: 'lime'
+      CLEAN_BUILD:
+        description: 'Build with a clean workspace?'
+        required: true
+        default: 'no'
+        type: choice
+        options: 
+        - 'yes'
+        - 'no'
 
 jobs:
   Start-Runner:
