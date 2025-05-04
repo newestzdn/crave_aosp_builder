@@ -131,9 +131,6 @@ jobs:
         ;;
         esac
 
-    - name: Cleanup
-      run: rm -rf * # This cleans github actions workspace
-
       # Create a project folder
     - name: Create Project Folders
       run: |
