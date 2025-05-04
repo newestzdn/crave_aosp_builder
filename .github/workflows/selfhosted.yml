@@ -174,8 +174,7 @@ jobs:
         else
           echo "We are already running in devspace... Skipping Symlinks"
         fi
-        if [ 
-        mkdir $PROJECTFOLDER
+        mkdir -p $PROJECTFOLDER
         cd $PROJECTFOLDER
         $REPOINIT
         crave set --projectID 73
