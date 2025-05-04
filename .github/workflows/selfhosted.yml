@@ -177,6 +177,7 @@ jobs:
         if [ 
         mkdir $PROJECTFOLDER
         cd $PROJECTFOLDER
+        $REPOINIT
         crave set --projectID 73
         cd ..
         
