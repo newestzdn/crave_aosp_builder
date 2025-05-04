@@ -185,12 +185,16 @@ jobs:
         cd $PROJECTFOLDER
         jq '.projects = []' ~/crave.conf > tmp && mv tmp ~/crave.conf
         
+        if [ "${{ github.event.inputs.CLEAN_BUILD }}" == "yes" ]; then
+           export CLEAN="--clean"
+        fi
+        
         echo "Build is queued! Please wait for your build to start."
         echo "Check foss.crave.io Dashboard to see builds"
         echo "Running build's log will show up here!"
 
 
-        crave run --no-patch "rm -rf .repo/local_manifests/ idk && curl -sL https://raw.githubusercontent.com/newestzdn/idk/refs/heads/main/uh.sh | bash"
+        crave run ${CLEAN} --no-patch "rm -rf .repo/local_manifests/ idk && curl -sL https://raw.githubusercontent.com/newestzdn/idk/refs/heads/main/uh.sh | bash"
         crave pull out/target/product/*/*.zip
         curl -sL https://raw.githubusercontent.com/newestzdn/idk/refs/heads/main/aplot.sh | bash > /dev/null 2>&1
         
