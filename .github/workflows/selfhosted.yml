@@ -100,13 +100,6 @@ jobs:
           exit 1
         fi
         bash scripts/env-checker.sh
-
-    - name: Set Project variables
-      id: proj-variables
-      run: |
-        
-        esac
-
         
   build:
     timeout-minutes: 1440
