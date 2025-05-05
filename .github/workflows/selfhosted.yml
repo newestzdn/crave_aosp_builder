@@ -17,7 +17,7 @@ on:
         type: choice
         options:
           - 'ArrowOS 13.1'
-          - 'PixelOS 15'
+          - 'LOS 13'
           - 'RisingOS 15 Revived'
       DEVICE_NAME:
         description: "Device's codename:"
@@ -110,6 +110,10 @@ jobs:
         "ArrowOS 13.1")
           echo "PROJECTFOLDER=/crave-devspaces/Arrow13" >> $GITHUB_ENV
           echo "PROJECTID=73" >> $GITHUB_ENV
+        ;;
+        "LOS 13")
+          echo "PROJECTFOLDER=/crave-devspaces/Lineage20" >> $GITHUB_ENV
+          echo "PROJECTID=36" >> $GITHUB_ENV
         ;;
         "PixelOS 15")
           export PROJECTFOLDER="/crave-devspaces/Pixel15"
