@@ -13,12 +13,12 @@ on:
       BASE_PROJECT:
         description: 'Choose a base project:'
         required: true
-        default: 'ArrowOS 13.1'
+        default: 'AOSP'
         type: choice
         options:
           - 'ArrowOS 13.1'
           - 'LOS 13'
-          - 'RisingOS 15 Revived'
+          - 'AOSP'
       DEVICE_NAME:
         description: "Device's codename:"
         required: true
@@ -115,10 +115,9 @@ jobs:
           echo "PROJECTFOLDER=/crave-devspaces/Lineage20" >> $GITHUB_ENV
           echo "PROJECTID=36" >> $GITHUB_ENV
         ;;
-        "PixelOS 15")
-          export PROJECTFOLDER="/crave-devspaces/Pixel15"
-          export PROJECTID="82"
-          export REPO_INIT="repo init -u https://github.com/PixelOS-AOSP/manifest.git -b fifteen --git-lfs --depth=1"
+        "AOSP")
+          echo "PROJECTFOLDER=/crave-devspaces/AOSP" >> $GITHUB_ENV
+          echo "PROJECTID=35" >> $GITHUB_ENV
         ;;
         "RisingOS 15 Revived")
           export PROJECTFOLDER="/crave-devspaces/Rising15"
