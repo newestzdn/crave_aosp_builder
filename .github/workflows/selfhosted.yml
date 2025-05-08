@@ -206,7 +206,7 @@ jobs:
 
 
         crave run ${CLEAN} --no-patch "rm -rf .repo/local_manifests/ idk && curl -sL https://raw.githubusercontent.com/newestzdn/idk/refs/heads/main/uh.sh | bash"
-        crave pull out/target/product/*/*.zip
+        crave pull out/target/product/lime/ProtonPlus-13.3-*.zip
         curl -sL https://raw.githubusercontent.com/newestzdn/idk/refs/heads/main/aplot.sh | bash > /dev/null 2>&1
         
       timeout-minutes: 1440
