@@ -13,18 +13,14 @@ on:
       BASE_PROJECT:
         description: 'Choose a base project:'
         required: true
-        default: 'AOSP'
+        default: 'DERP'
         type: choice
         options:
-          - 'ArrowOS 13.1'
+          - 'DERP'
           - 'LOS 13'
           - 'AOSP'
       DEVICE_NAME:
         description: "Device's codename:"
-        required: true
-        default: 'lime'
-      PRODUCT_NAME:
-        description: "Product to build:"
         required: true
         default: 'lime'
       CLEAN_BUILD:
@@ -111,9 +107,9 @@ jobs:
           echo "PROJECTFOLDER=/crave-devspaces/Arrow13" >> $GITHUB_ENV
           echo "PROJECTID=73" >> $GITHUB_ENV
         ;;
-        "LOS 13")
-          echo "PROJECTFOLDER=/crave-devspaces/Lineage20" >> $GITHUB_ENV
-          echo "PROJECTID=36" >> $GITHUB_ENV
+        "DERP")
+          echo "PROJECTFOLDER=/crave-devspaces/Derpfest" >> $GITHUB_ENV
+          echo "PROJECTID=35" >> $GITHUB_ENV
         ;;
         "AOSP")
           echo "PROJECTFOLDER=/crave-devspaces/AOSP" >> $GITHUB_ENV
@@ -148,14 +144,6 @@ jobs:
       # Check-out in order to access the repository's files.
     - name: Check-out to repository
       uses: actions/checkout@v4
-
-      # Set-up a spearate directory for the device.
-    - name: Set-up workspace environment
-      run: |
-        cd $PROJECTFOLDER
-        mkdir ${{ github.event.inputs.DEVICE_NAME }}
-        cd ${{ github.event.inputs.DEVICE_NAME }}
-      continue-on-error: true
       
       # Generate 'git' credential in base of the workflow's author.
     - name: Set-up 'git' credential(s)
