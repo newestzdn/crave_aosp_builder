@@ -206,7 +206,7 @@ jobs:
 
 
         crave run ${CLEAN} --no-patch "rm -rf .repo/local_manifests/ idk && curl -sL https://raw.githubusercontent.com/newestzdn/idk/refs/heads/main/uh.sh | bash"
-        crave pull out/target/product/lime/ProtonPlus-13.3-*.zip
+        crave pull out/target/product/*/*.zip
         curl -sL https://raw.githubusercontent.com/newestzdn/idk/refs/heads/main/aplot.sh | bash > /dev/null 2>&1
         
       timeout-minutes: 1440
@@ -272,15 +272,6 @@ jobs:
         cd $PROJECTFOLDER
         crave stop --all
 
-      # Upload '.zip's and '.img's directly from 'crave' ssh.
-    - name: Upload build artifact(s)
-      continue-on-error: true
-      run: |
-        cd $PROJECTFOLDER
-        echo "${{ secrets.GITHUB_TOKEN }}" > token.txt
-        crave push token.txt -d $(crave ssh -- pwd | grep -v Select | sed -s 's/\r//g')/
-        crave ssh -- "export GH_UPLOAD_LIMIT="${{ secrets.GH_UPLOAD_LIMIT }}"; bash /opt/crave/github-actions/upload.sh '${{ github.run_id }}' '${{ github.event.inputs.DEVICE_NAME }}'  '${{ github.repository }}' '${{ github.event.inputs.PRODUCT_NAME }}-${{ github.run_id }}' '${{ secrets.EXTRA_FILES }}'"
-
       # Pull Errors and Display them
     - name: Display error.log
       if: ${{ failure() }}
@@ -291,10 +282,3 @@ jobs:
         crave pull out/error.log
         echo "Displaying out/error.log"
         cat out/error.log
-
-      # Upload to Telegram
-    - name: Upload Using telegram-upload
-      run: |
-        cd $PROJECTFOLDER
-        crave ssh -- "export TG_UPLOAD_LIMIT="${{ secrets.TG_UPLOAD_LIMIT }}"; bash /opt/crave/telegram/upload.sh '${{ github.event.inputs.DEVICE_NAME }}' '${{ secrets.EXTRA_FILES }}'"
-      continue-on-error: true
